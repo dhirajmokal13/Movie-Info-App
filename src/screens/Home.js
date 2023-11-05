@@ -18,7 +18,7 @@ const data = [
 export const Home = () => {
     return (
         <SafeAreaView>
-            <ScrollView>
+            <ScrollView horizontal={true}>
                 {
                     data?.map((item, index) => {
                         return <MovieCard key={index} movieName={item["Title"]} type={item["Type"]} moviePoster={item["Poster"]} releaseYear={item["Year"]} imdbID={item["imdbID"]} />;
