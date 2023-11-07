@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { SafeAreaView, Text, TextInput, View, TouchableOpacity, Alert } from "react-native";
+const serverLink = "https://puce-odd-rooster.cyclic.app";
 
 const LoginForm = () => {
     const [loginData, setLoginData] = useState({
@@ -17,7 +18,7 @@ const LoginForm = () => {
 
     const handleLogin = async () => {
         if (/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(loginData.email) && /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(loginData.password)) {
-            axios.post("https://puce-odd-rooster.cyclic.app/api/user/login",
+            axios.post(`${serverLink}/api/user/login`,
                 { 'email': loginData.email, 'password': loginData.password }).then(res => {
                     if (res.data.status === "Login Success") {
                         Alert.alert("Login Success");
