@@ -78,13 +78,12 @@ export const Home = () => {
     return (
         <SafeAreaView>
             <View className="flex-1 items-center justify-center flex-row">
-                <View className="border border-gray-300 bg-gray-300 py-1 px-4 rounded-md w-[65%] mb-2 mt-3 mx-2">
+                <View className="border border-gray-300 bg-gray-300 py-1 px-4 rounded-md w-[90%] mb-2 mt-3 mx-2">
                     <TextInput placeholder="Search Movies/Series/Shows" value={searchText} onChangeText={txt => setSearchText(txt)} returnKeyType="search" onSubmitEditing={() => currentPageNo === 1 ? handleSearch() : setCurrentPageNo(1)} />
                 </View>
-                <Text className="text-lime-800">Results: {totalResults}</Text>
             </View>
             {
-                firstLoad ? <Text className="mx-8 text-emerald-700 mb-1">Suggested Content</Text> : <Text className="mx-8 text-emerald-700 mb-1">Search Results: {searchText}</Text>
+                firstLoad ? <Text className="mx-8 text-emerald-700 mb-1">Suggested Content</Text> : <Text className="text-center text-emerald-700 mb-1">Search Results: {searchText}   <Text className="text-red-800">Total: {totalResults}</Text></Text>
             }
             <ScrollView horizontal={true}>
                 {

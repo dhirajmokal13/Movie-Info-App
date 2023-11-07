@@ -42,10 +42,10 @@ const LoginForm = () => {
             <Text className="text-xl font-bold tracking-wider">Login Form</Text>
             <View className="mt-4 mb-2 w-80 max-w-screen-lg sm:w-96">
                 <View className="relative w-full min-w-[200px]">
-                    <TextInput className="border border-gray-300 bg-gray-300 py-2 px-4 rounded-md" placeholder="Email Address" onChangeText={(txt) => loginDataHandle('email', txt)} value={loginData.email} />
+                    <TextInput className="border border-gray-300 bg-gray-300 py-2 px-4 rounded-md" autoCapitalize="none" placeholder="Email Address" onChangeText={(txt) => loginDataHandle('email', txt)} value={loginData.email} />
                 </View>
                 <View className="relative w-full min-w-[200px] my-3">
-                    <TextInput className="border border-gray-300 bg-gray-300 py-2 px-4 rounded-md" placeholder="Password" onChangeText={(txt) => loginDataHandle('password', txt)} secureTextEntry={true} />
+                    <TextInput className="border border-gray-300 bg-gray-300 py-2 px-4 rounded-md" autoCapitalize="none" autoCorrect={false} placeholder="Password" onChangeText={(txt) => loginDataHandle('password', txt)} secureTextEntry={true} />
                 </View>
                 <View className="relative w-full min-w-[200px] my-2">
                     <TouchableOpacity onPress={handleLogin}>

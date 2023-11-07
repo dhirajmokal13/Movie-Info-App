@@ -83,17 +83,17 @@ const RegistrationForm = () => {
                     <TextInput className="border border-gray-300 bg-gray-300 py-2 px-4 rounded-md" onChangeText={(txt) => { registrationDataHandle('name', txt) }} value={registrationData.name} placeholder="Name" />
                 </View>
                 <View className="relative w-full min-w-[200px] mb-3">
-                    <TextInput className="border border-gray-300 bg-gray-300 py-2 px-4 rounded-md" onChangeText={(txt) => { registrationDataHandle('email', txt) }} value={registrationData.email} placeholder="Email Address" />
+                    <TextInput className="border border-gray-300 bg-gray-300 py-2 px-4 rounded-md" autoCapitalize="none" onChangeText={(txt) => { registrationDataHandle('email', txt) }} value={registrationData.email} placeholder="Email Address" />
                 </View>
                 <View className="relative w-full min-w-[200px] mb-3">
                     <TextInput className="border border-gray-300 bg-gray-300 py-2 px-4 rounded-md" onChangeText={(txt) => { registrationDataHandle('mobile', txt) }} value={registrationData.mobile} keyboardType="numeric" placeholder="Mobile Number" />
                 </View>
                 <View className="relative w-full min-w-[200px] mb-3">
-                    <TextInput className="border border-gray-300 bg-gray-300 py-2 px-4 rounded-md" onChangeText={(txt) => { registrationDataHandle('password', txt) }} value={registrationData.password} placeholder="Password" secureTextEntry={true} />
+                    <TextInput className="border border-gray-300 bg-gray-300 py-2 px-4 rounded-md" autoCapitalize="none" autoCorrect={false} onChangeText={(txt) => { registrationDataHandle('password', txt) }} value={registrationData.password} placeholder="Password" secureTextEntry={true} />
                 </View>
                 <View className="relative w-full min-w-[200px] mb-3">
-                    <TextInput className="border border-gray-300 bg-gray-300 py-2 px-4 rounded-md" onChangeText={(txt) => { registrationDataHandle('confirmPassword', txt) }} value={registrationData.confirmPassword} placeholder="Confirm Password" secureTextEntry={true} />
-                </View>
+                    <TextInput className="border border-gray-300 bg-gray-300 py-2 px-4 rounded-md" autoCapitalize="none" autoCorrect={false} onChangeText={(txt) => { registrationDataHandle('confirmPassword', txt) }} value={registrationData.confirmPassword} placeholder="Confirm Password" secureTextEntry={true} />
+                </View> 
                 <View className="relative w-full min-w-[200px] mb-3 border border-gray-300 bg-gray-300 px-4 rounded-md">
                     <Picker style={{ height: 50 }} onValueChange={(txt) => { registrationDataHandle('role', txt) }} selectedValue={registrationData.role}>
                         <Picker.Item label="User" value="User" />

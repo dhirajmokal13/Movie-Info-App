@@ -3,21 +3,20 @@ import { Text, View, Image, SafeAreaView, TouchableOpacity, ActivityIndicator } 
 
 const MovieCard = (props) => {
     const [loading, setLoading] = useState(true);
-
     return (
         <SafeAreaView>
             <View className="relative text-gray-700 overflow-hidden bg-white shadow-md w-[340] rounded-xl mx-3 mb-2 mt-1">
-                <View className="relative m-5 max-h-[460] text-white shadow-lg bg-blue-gray-500 shadow-blue-gray-500/40">
+                <View className="relative m-5 max-h-[460] text-white shadow-lg bg-blue-gray-500 shadow-blkue-gray-500/40">
                     {loading && (
                         <ActivityIndicator size="large" color="#0000ff" style={{ position: 'absolute', top: 0, bottom: 0, left: 0, right: 0 }} />
                     )}
                     <Image className="w-full h-full" layout="fill" source={{ uri: props.moviePoster }} onLoad={() => setLoading(false)} />
-                    <Text className="absolute bottom-0 bg-black/[0.65] text-white py-2 px-6">{props.type}</Text>
+                    <Text className="absolute bottom-0 bg-black/[0.65] text-white py-2 px-4 w-full">{props.type}  <Text className="text-rose-500">{props.releaseYear}</Text></Text>
                     <Text className="absolute top-0 py-1 px-3 bg-black/[0.65] text-white">{props.no}</Text>
                 </View>
                 <View className="px-5 pb-3 border-b-4 border-gray-200">
-                    <Text className="block mb-2 text-lg antialiased leading-snug tracking-normal text-blue-gray-900">
-                        {props.movieName} <Text className="text-rose-500">({props.releaseYear})</Text>
+                    <Text className="block mb-2 text-lg antialiased leading-snug tracking-normal text-blue-gray-900" numberOfLines={1} ellipsizeMode="tail">
+                        {props.movieName} 
                     </Text>
                 </View>
                 <View className="px-5 pt-0 w-[175] flex flex-row">
