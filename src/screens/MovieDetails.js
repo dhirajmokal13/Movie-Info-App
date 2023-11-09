@@ -2,19 +2,22 @@ import React, { useState, useEffect } from 'react'
 import { View, SafeAreaView, Image, Text, ScrollView, ActivityIndicator } from 'react-native'
 import axios from 'axios'
 import Footer from '../components/Footer';
-import MovieReviews from '../components/movieReviews';
+import MovieReviews from '../components/MovieReviews';
 const key = '4034acde' || 76593128;
 
 const MovieDetails = ({ route, navigation }) => {
     const [movieData, setMovieData] = useState({});
     const [isLoading, setIsLoading] = useState(true);
     const [likesData, setLikesData] = useState([]);
-
     const movie_id = route.params.imdbID; //getting imdb id for fetching moview data
 
     useEffect(() => {
         fetchMovieData();
     }, []);
+
+    useEffect(() => {
+        console.log(likesData)
+    }, [likesData])
 
     const fetchMovieData = () => {
         setIsLoading(true);
@@ -64,7 +67,7 @@ const MovieDetails = ({ route, navigation }) => {
                     }</Text>
                     <Text className="text-gray-500 my-1"><Text className="font-bold tracking-wide text-black">Plot:</Text> {movieData["Plot"]}</Text>
                 </View>
-                <MovieReviews likesData={likesData}/>
+                <MovieReviews setLikesData={setLikesData} imdbID={movieData.imdbID}/>
             </ScrollView>
             <Footer navigation={navigation} route={route} />
         </SafeAreaView>

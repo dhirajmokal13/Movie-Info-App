@@ -78,7 +78,6 @@ const RegistrationForm = ({ route, navigation }) => {
                                 }
                             }).catch(err => {
                                 setBtnLoading(false);
-
                                 Alert.alert(err.response.data.message || err.response.data);
                             })
                         }
