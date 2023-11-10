@@ -3,8 +3,7 @@ import React, { useState } from "react";
 import { SafeAreaView, Text, TextInput, View, TouchableOpacity, Alert } from "react-native";
 import Footer from "../components/Footer";
 import { useLoginContext } from "../context/LoginContext";
-
-const serverLink = "https://puce-odd-rooster.cyclic.app";
+const serverLink = process.env.EXPO_PUBLIC_SERVER_ADDRESS;
 
 const LoginForm = ({ route, navigation }) => {
 

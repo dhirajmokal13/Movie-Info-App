@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { useFilterContext } from '../context/FiltersContext';
 import axios from 'axios';
 import Footer from '../components/Footer';
-const key = '4034acde' || 76593128;
+const key = process.env.EXPO_PUBLIC_OMDB_API_KEY_ONE || process.env.EXPO_PUBLIC_OMDB_API_KEY_TWO;
 
 const defaultData = [
     { "Title": "Mr. Robot", "Year": "2015–2019", "imdbID": "tt4158110", "Type": "series", "Poster": "https://m.media-amazon.com/images/M/MV5BM2QyNDIzOGMtNThhNS00NmUwLWI0ZjUtZjdkN2I1OTRjZWQ3XkEyXkFqcGdeQXVyNzQ1ODk3MTQ@._V1_SX300.jpg" },
@@ -108,12 +108,12 @@ export const Home = ({ route, navigation }) => {
                         })
                     }
                 </ScrollView>
-                <View className="px-5 flex flex-row items-center justify-center mt-2 mb-[11vh]">
-                    <TouchableOpacity className="mr-[15vw]" disabled={isLoading ? true : false} onPress={() => handlePagination("previous")}>
+                <View className="px-5 flex flex-row items-center justify-center mt-3 mb-[11vh]">
+                    <TouchableOpacity className="mr-[11vw]" disabled={isLoading ? true : false} onPress={() => handlePagination("previous")}>
                         <Text className={`w-[25vw] rounded ${isLoading ? 'bg-indigo-500' : 'bg-indigo-900'} py-3 px-4 text-center align-middle text-xs font-bold uppercase text-white shadow-md shadow-indigo-900/20 transition-all hover:shadow-lg hover:shadow-indigo-900/60 focus:opacity-[0.90] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none`}>Previous</Text>
                     </TouchableOpacity>
                     <Text>{currentPageNo}</Text>
-                    <TouchableOpacity className="ml-[15vw]" disabled={isLoading ? true : false} onPress={() => handlePagination("next")}>
+                    <TouchableOpacity className="ml-[11vw]" disabled={isLoading ? true : false} onPress={() => handlePagination("next")}>
                         <Text className={`w-[25vw] rounded ${isLoading ? 'bg-indigo-500' : 'bg-indigo-900'} py-3 px-4 text-center align-middle text-xs font-bold uppercase text-white shadow-md shadow-indigo-900/20 transition-all hover:shadow-lg hover:indigo-900/60 focus:opacity-[0.90] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none`}>Next</Text>
                     </TouchableOpacity>
                 </View>

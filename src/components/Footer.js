@@ -5,7 +5,7 @@ import { useLoginContext } from '../context/LoginContext';
 
 const Footer = (props) => {
     //Login Cotext api
-    const { loginDetails, setLoginDetails } = useLoginContext();
+    const { loginDetails } = useLoginContext();
 
     const handleSerach = () => {
         if (props.route.name === "Movie Info") {
@@ -17,7 +17,7 @@ const Footer = (props) => {
     }
 
     return (
-        <SafeAreaView className="px-[12vw] py-[1.2vh] backdrop-blur bg-black/90 rounded-2xl min-h-[7vh] absolute left-[3vw] right-[3vw] bottom-3 w-[94vw] flex-1 items-center justify-center flex-row justify-between">
+        <SafeAreaView className="px-[12vw] py-[1.6vh] backdrop-blur bg-black/90 rounded-2xl min-h-[7vh] absolute left-[4vw] right-[4vw] bottom-3 w-[92vw] flex-1 items-center justify-center flex-row justify-between">
             <TouchableOpacity disabled={props.route.name === "Movie Info"} onPress={() => props.navigation.navigate("Movie Info")}>
                 {props.route.name === "Movie Info" ? <FontAwesome name="home" size={20} color="#be185d" /> : <FontAwesome name="home" size={20} color="white" />}
                 <Text className="-ml-2 text-xs text-white">Home</Text>

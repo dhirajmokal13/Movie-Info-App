@@ -4,7 +4,7 @@ import { SafeAreaView, Text, TextInput, View, TouchableOpacity, Alert } from "re
 import { Picker } from "@react-native-picker/picker";
 import customDataValidation from "../hooks/UserInfoValidate";
 import Footer from "../components/Footer";
-const serverLink = "https://puce-odd-rooster.cyclic.app"
+const serverLink = process.env.EXPO_PUBLIC_SERVER_ADDRESS;
 
 const RegistrationForm = ({ route, navigation }) => {
     const [btnLoading, setBtnLoading] = useState(false);

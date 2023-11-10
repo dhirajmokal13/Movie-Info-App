@@ -4,7 +4,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import Footer from '../components/Footer'
 import { useLoginContext } from '../context/LoginContext'
 import axios from 'axios';
-const serverLink = "https://puce-odd-rooster.cyclic.app";
+const serverLink = process.env.EXPO_PUBLIC_SERVER_ADDRESS;
 
 const Profile = ({ route, navigation }) => {
     //Login Cotext api

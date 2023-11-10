@@ -1,5 +1,5 @@
-const serverLink = "https://puce-odd-rooster.cyclic.app"
 import axios from "axios";
+const serverLink = process.env.EXPO_PUBLIC_SERVER_ADDRESS;
 
 const customDataValidation = () => {
     return {

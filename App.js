@@ -25,7 +25,7 @@ export default function App() {
       <LoginProvider>
         <NavigationContainer>
           <Stack.Navigator initialRouteName="Movie Info">
-            <Stack.Screen name="Movie Info" component={Home} />
+            <Stack.Screen name="Movie Info" component={Home} options={{ title: 'Home' }} />
             <Stack.Screen name="Login" component={LoginForm} />
             <Stack.Screen name="Registration" component={RegistrationForm} />
             <Stack.Screen name="MovieDetails" component={MovieDetails} />

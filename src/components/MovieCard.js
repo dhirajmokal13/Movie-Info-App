@@ -20,7 +20,7 @@ const MovieCard = (props) => {
                     </Text>
                 </View>
                 <View className="px-5 pt-0 w-[175] flex flex-row">
-                    <TouchableOpacity className="my-3" onPress={() => props.navigation.navigate("MovieDetails", { imdbID: props.imdbID })}>
+                    <TouchableOpacity className="my-[1.4vh]" onPress={() => props.navigation.navigate("MovieDetails", { imdbID: props.imdbID })}>
                         <Text className="rounded-md bg-pink-600 py-3 px-4 text-center align-middle text-xs font-bold uppercase text-white shadow-md shadow-pink-600/20 transition-all hover:shadow-lg hover:shadow-pink-600/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">Read More</Text>
                     </TouchableOpacity>
                 </View>
