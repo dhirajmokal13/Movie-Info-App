@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react'
-import { SafeAreaView, Text, View } from 'react-native'
+import { SafeAreaView, Text, TouchableOpacity, View } from 'react-native'
+import { Rating } from 'react-native-ratings';
 import { useLoginContext } from '../context/LoginContext';
 const serverLink = process.env.EXPO_PUBLIC_SERVER_ADDRESS;
 
@@ -42,6 +43,12 @@ const MovieReviews = ({ setLikesCount, imdbID, navigation }) => {
                             return (
                                 <View className="my-[1vh]" key={data._id}>
                                     <Text>{data.review}</Text>
+                                    <Rating imageSize={15} type="star" ratingCount={6} fractions={1} jumpValue={0.5} startingValue={5} readonly />
+                                    {loginDetails.userId === data.user_id._id && (
+                                        <TouchableOpacity>
+                                            <Text>Edit</Text>
+                                        </TouchableOpacity>
+                                    )}
                                 </View>
                             )
                         })

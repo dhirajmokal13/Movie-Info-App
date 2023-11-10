@@ -5,7 +5,8 @@ export const LoginProvider = ({ children }) => {
     const [loginDetails, setLoginDetails] = useState({
         isLoggedIn: false,
         token: '',
-        refreshToken: ''
+        refreshToken: '',
+        userId: ''
     });
 
     return (

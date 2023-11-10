@@ -35,7 +35,8 @@ const LoginForm = ({ route, navigation }) => {
                         setLoginDetails({
                             isLoggedIn: true,
                             token: res.data.jwtToken,
-                            refreshToken: res.data.jwtRefreshToken
+                            refreshToken: res.data.jwtRefreshToken,
+                            userId: res.data.userId
                         });
                         //Remove button is loading
                         setLoginData(false);
