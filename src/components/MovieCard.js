@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Text, View, Image, SafeAreaView, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { Text, View, Image, SafeAreaView, TouchableOpacity, ActivityIndicator, StyleSheet } from 'react-native';
 
 const MovieCard = (props) => {
     const [loading, setLoading] = useState(true);
     return (
-        <SafeAreaView>
+        <SafeAreaView className="shadow-2xl">
             <View className="relative text-gray-700 overflow-hidden bg-white shadow-md w-[87vw] rounded-xl mx-6 mb-2 mt-1">
                 <View className="relative m-5 max-h-[53vh] text-white shadow-lg bg-blue-gray-500 shadow-blkue-gray-500/40">
                     {loading && (
@@ -28,5 +28,7 @@ const MovieCard = (props) => {
         </SafeAreaView>
     );
 };
+
+
 
 export default MovieCard;
