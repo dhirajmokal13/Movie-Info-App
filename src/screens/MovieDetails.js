@@ -33,8 +33,8 @@ const MovieDetails = ({ route, navigation }) => {
         <SafeAreaView className="flex-1 items-center">
             <ScrollView className="mt-2">
                 <View className="relative w-[95vw] max-h-[67vh] top-5 bg-indigo-500 shadow-lg shadow-indigo-500/50">
-                    <Image className="w-full h-full rounded" source={{ uri: movieData["Poster"] }} />
-                    <View className="absolute top-0 my-[1vh] mx-[2vw] flex flex-column">
+                    <Image className="w-full h-full" source={{ uri: movieData["Poster"] }} />
+                    <View className="absolute top-0 my-[1.2vh] mx-[3vw] flex flex-column">
                         <FontAwesome name="heart" size={24} color="red" />
                         <Text className="text-white text-center">{likesCount}</Text>
                     </View>
