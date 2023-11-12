@@ -188,7 +188,7 @@ const MovieReviews = ({ setLikesCount, imdbID, navigation }) => {
                         reviews?.map((data) => {
                             return (
                                 <View key={data._id}>
-                                    <View className="my-[2vh] flex-row self-start ml-[6vw]">
+                                    <View className="my-[2vh] flex-row self-start ml-[1vw]">
                                         <View className="w-[8vw] flex-column mr-[4vw]">
                                             <TouchableOpacity onPress={() => handleReviewLikes(data._id)}>
                                                 <Entypo name={(data.likes).includes(loginDetails.userId) ? "heart" : "heart-outlined"} size={29} color={(data.likes).includes(loginDetails.userId) ? "red" : "black"} />
@@ -203,7 +203,7 @@ const MovieReviews = ({ setLikesCount, imdbID, navigation }) => {
                                                 </View>
                                                 {loginDetails.userId === data.user_id._id && (
                                                     <View>
-                                                        <Entypo onPress={() => setShowMenu(!showMenu)} style={{ marginTop: 3, marginLeft: 4 }} name="dots-three-vertical" size={15} color="black" />
+                                                        <Entypo onPress={() => setShowMenu(!showMenu)} style={{ marginTop: 3, marginLeft: 9 }} name="dots-three-vertical" size={15} color="black" />
                                                         {showMenu && (
                                                             <View className="w-[18.5vw] absolute right-5 rounded-md z-[1]" style={styles.shadowContainer}>
                                                                 <Text className="text-black my-1 text-center mt-4" onPress={() => { setShowModal(true), setShowMenu(false) }}>Edit</Text>
