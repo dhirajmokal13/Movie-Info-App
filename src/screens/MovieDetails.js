@@ -31,6 +31,7 @@ const MovieDetails = ({ route, navigation }) => {
         axios.get(`http://www.omdbapi.com/?apikey=${key}&i=${movie_id}&plot=full`).then(res => {
             setMovieData(res.data);
             setIsLoading(false);
+            console.log(`${res.data["Title"]} - ${movie_id}`)
         }).catch(err => {
             console.error(err);
         })
@@ -46,7 +47,7 @@ const MovieDetails = ({ route, navigation }) => {
                 })
             }
         }).catch(err => {
-            console.log(err.responce);
+            console.log(err.response.status);
             setIsTrailer({
                 isTrailerAvailable: false,
                 openTrailerModal: false,
