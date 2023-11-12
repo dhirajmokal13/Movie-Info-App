@@ -6,7 +6,7 @@ export const LoginProvider = ({ children }) => {
         isLoggedIn: false,
         token: '',
         refreshToken: '',
-        userId: ''
+        userId: '',
     });
 
     return (

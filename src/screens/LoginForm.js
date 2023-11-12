@@ -6,7 +6,6 @@ import { useLoginContext } from "../context/LoginContext";
 const serverLink = process.env.EXPO_PUBLIC_SERVER_ADDRESS;
 
 const LoginForm = ({ route, navigation }) => {
-
     const [loginData, setLoginData] = useState({
         email: '',
         password: '',

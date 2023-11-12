@@ -24,15 +24,15 @@ const defaultData = [
 ]
 
 export const Home = ({ route, navigation }) => {
-    const { filterDetails, setFilterDetails } = useFilterContext();
+    const { filterDetails } = useFilterContext();
     const [searchText, setSearchText] = useState('');
     const [movieResult, setMovieResult] = useState(defaultData);
     const [totalResults, setTotalResults] = useState(0);
     const [currentPageNo, setCurrentPageNo] = useState(1);
     const [isLoading, setIsLoading] = useState(false);
     const [firstLoad, setFirstLoad] = useState(true);
-    const searchRef = useRef(null);
     const [seachOpened, setsearchOpened] = useState(false);
+    const searchRef = useRef(null);
 
     useEffect(() => {
         if (!firstLoad) {
