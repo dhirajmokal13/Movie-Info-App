@@ -1,20 +1,29 @@
 import React, { useState, useEffect } from 'react'
-import { View, SafeAreaView, Image, Text, ScrollView, ActivityIndicator } from 'react-native'
+import { View, SafeAreaView, Image, Text, ScrollView, ActivityIndicator, StyleSheet, Pressable } from 'react-native'
 import { FontAwesome } from '@expo/vector-icons';
 import axios from 'axios'
+import YoutubePlayer from "react-native-youtube-iframe";
+import Modal from "react-native-modal";
 import Footer from '../components/Footer';
 import MovieReviews from '../components/MovieReviews';
 const key = process.env.EXPO_PUBLIC_OMDB_API_KEY_ONE || process.env.EXPO_PUBLIC_OMDB_API_KEY_TWO;
+const serverLink = process.env.EXPO_PUBLIC_SERVER_ADDRESS;
 
 const MovieDetails = ({ route, navigation }) => {
     const [movieData, setMovieData] = useState({});
     const [isLoading, setIsLoading] = useState(true);
     const [likesCount, setLikesCount] = useState(0); //likes will set by child component using callback
+    const [isTrailer, setIsTrailer] = useState({
+        isTrailerAvailable: false,
+        openTrailerModal: false,
+        TrailerId: ''
+    });
 
     const movie_id = route.params.imdbID; //getting imdb id for fetching moview data
 
     useEffect(() => {
         fetchMovieData();
+        fetchTrailer();
     }, []);
 
     const fetchMovieData = () => {
@@ -27,18 +36,40 @@ const MovieDetails = ({ route, navigation }) => {
         })
     }
 
+    const fetchTrailer = () => {
+        axios.get(`${serverLink}/api/show/${movie_id}`).then(res => {
+            if (res.status === 200) {
+                setIsTrailer({
+                    isTrailerAvailable: true,
+                    openTrailerModal: false,
+                    TrailerId: res.data.showData.youtube_video_id
+                })
+            }
+        }).catch(err => {
+            console.log(err.responce);
+            setIsTrailer({
+                isTrailerAvailable: false,
+                openTrailerModal: false,
+                TrailerId: ''
+            })
+        })
+    }
+
     return (
         <SafeAreaView className="flex-1 items-center">
             {
-                isLoading ? (<View className="min-h-[75vh] flex-1 justify-center px-[40vw]"><ActivityIndicator size="large" color="#0000ff" /></View>) : 
-                (<ScrollView className="mt-2">
+                isLoading ? (<View className="min-h-[75vh] flex-1 justify-center px-[40vw]"><ActivityIndicator size="large" color="#0000ff" /></View>) :
+                    (<ScrollView className="mt-2">
                         <View className="relative w-[95vw] max-h-[67vh] top-5 bg-indigo-500 shadow-lg shadow-indigo-500/50">
                             <Image className="w-full h-full" source={{ uri: movieData["Poster"] }} />
                             <View className="absolute top-0 my-[1.2vh] mx-[3vw] flex flex-column">
                                 <FontAwesome name="heart" size={24} color="red" />
                                 <Text className="text-white text-center">{likesCount}</Text>
                             </View>
-                            <Text className="absolute bottom-0 bg-black/[0.65] text-white py-2 px-4 w-full">{movieData["Type"]}    <Text className="text-pink-700">{movieData["Year"]}   {movieData["Type"] === "series" ? <Text><Text className="text-white">Total Seasons:</Text> {movieData["totalSeasons"]} </Text> : ""}</Text></Text>
+                            {
+                                isTrailer.isTrailerAvailable && (<Pressable className="absolute bottom-0 right-0 pr-4 pb-2 z-32 z-20" onPress={() => setIsTrailer((pre) => ({ ...pre, openTrailerModal: true }))}><FontAwesome className="ml-[5vw]" name="video-camera" size={21} color="#e11d48" /></Pressable>)
+                            }
+                            <Text className="absolute bottom-0 bg-black/[0.65] text-white py-2 px-4 w-full z-10">{movieData["Type"]}    <Text className="text-pink-700">{movieData["Year"]}   {movieData["Type"] === "series" ? <Text><Text className="text-white">Total Seasons:</Text> {movieData["totalSeasons"]} </Text> : ""}</Text></Text>
                         </View>
                         <View className="mt-12 mb-[3vh] w-[340]">
                             <Text className="text-black mb-3 text-lg font-semibold text-blue-gray-900 text-center">{movieData["Title"]} | <Text className="text-rose-700">{movieData["Released"]}</Text></Text>
@@ -69,6 +100,22 @@ const MovieDetails = ({ route, navigation }) => {
                             }</Text>
                             <Text className="text-gray-500 my-1"><Text className="font-bold tracking-wide text-black">Plot:</Text> {movieData["Plot"]}</Text>
                         </View>
+
+                        {
+                            isTrailer.isTrailerAvailable && (
+                                <Modal isVisible={isTrailer.openTrailerModal} onBackdropPress={() => { setIsTrailer((pre) => ({ ...pre, openTrailerModal: false })) }}>
+                                    <View className="bg-gray-100" style={[{ backgroundColor: "white" }, styles.shadowContainer]}>
+                                        <View className="w-full flex py-[1.3vh] rounded-t-md px-[5vw]">
+                                            <Text className="grow text-rose-700">
+                                                {movieData["Title"]}
+                                            </Text>
+                                        </View>
+                                        <YoutubePlayer height={192} play={false} videoId={isTrailer.TrailerId} />
+                                    </View>
+                                </Modal>
+                            )
+                        }
+
                         <MovieReviews setLikesCount={setLikesCount} imdbID={movieData.imdbID} navigation={navigation} />
                     </ScrollView>)
             }
@@ -76,5 +123,17 @@ const MovieDetails = ({ route, navigation }) => {
         </SafeAreaView>
     )
 }
+
+const styles = StyleSheet.create({
+    shadowContainer: {
+        backgroundColor: 'white',
+        borderRadius: 12,
+        elevation: 15,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 6,
+    },
+});
 
 export default MovieDetails
