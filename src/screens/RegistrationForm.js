@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { SafeAreaView, Text, TextInput, View, TouchableOpacity, Alert } from "react-native";
+import { StatusBar } from 'expo-status-bar';
 import { Picker } from "@react-native-picker/picker";
 import customDataValidation from "../hooks/UserInfoValidate";
 import Footer from "../components/Footer";
@@ -123,6 +124,7 @@ const RegistrationForm = ({ route, navigation }) => {
                     </TouchableOpacity>
                 </View>
             </View>
+            <StatusBar style="dark" />
             <Footer navigation={navigation} route={route} />
         </SafeAreaView>
     )

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { View, SafeAreaView, Image, Text, ScrollView, ActivityIndicator, StyleSheet, Pressable } from 'react-native'
+import { StatusBar } from 'expo-status-bar';
 import { FontAwesome } from '@expo/vector-icons';
 import axios from 'axios'
 import YoutubePlayer from "react-native-youtube-iframe";
@@ -28,7 +29,7 @@ const MovieDetails = ({ route, navigation }) => {
 
     const fetchMovieData = () => {
         setIsLoading(true);
-        axios.get(`http://www.omdbapi.com/?apikey=${key}&i=${movie_id}&plot=full`).then(res => {
+        axios.get(`https://www.omdbapi.com/?apikey=${key}&i=${movie_id}&plot=full`).then(res => {
             setMovieData(res.data);
             setIsLoading(false);
             console.log(`${res.data["Title"]} - ${movie_id}`)
@@ -72,7 +73,7 @@ const MovieDetails = ({ route, navigation }) => {
                             }
                             <Text className="absolute bottom-0 bg-black/[0.65] text-white py-2 px-4 w-full z-10">{movieData["Type"]}    <Text className="text-pink-700">{movieData["Year"]}   {movieData["Type"] === "series" ? <Text><Text className="text-white">Total Seasons:</Text> {movieData["totalSeasons"]} </Text> : ""}</Text></Text>
                         </View>
-                        <View className="mt-12 mb-[3vh] w-[340]">
+                        <View className="mt-12 mb-[3vh] w-[95vw]">
                             <Text className="text-black mb-3 text-lg font-semibold text-blue-gray-900 text-center">{movieData["Title"]} | <Text className="text-rose-700">{movieData["Released"]}</Text></Text>
                             <Text className="text-gray-500 my-1"><Text className="font-bold tracking-wide text-black">Genre:</Text> {movieData["Genre"]}</Text>
                             <Text className="text-gray-500 my-1"><Text className="font-bold tracking-wide text-black">RunTime:</Text> {movieData["Runtime"]}</Text>
@@ -105,8 +106,8 @@ const MovieDetails = ({ route, navigation }) => {
                         {
                             isTrailer.isTrailerAvailable && (
                                 <Modal isVisible={isTrailer.openTrailerModal} onBackdropPress={() => { setIsTrailer((pre) => ({ ...pre, openTrailerModal: false })) }}>
-                                    <View className="bg-gray-100" style={[{ backgroundColor: "white" }, styles.shadowContainer]}>
-                                        <View className="w-full flex py-[1.3vh] rounded-t-md px-[5vw]">
+                                    <View className="bg-gray-100 h-[29.9vh]" style={[{ backgroundColor: "white" }, styles.shadowContainer]}>
+                                        <View className="w-full flex py-[1.6vh] rounded-t-md px-[6vw]">
                                             <Text className="grow text-rose-700">
                                                 {movieData["Title"]}
                                             </Text>
@@ -120,6 +121,7 @@ const MovieDetails = ({ route, navigation }) => {
                         <MovieReviews setLikesCount={setLikesCount} imdbID={movieData.imdbID} navigation={navigation} />
                     </ScrollView>)
             }
+            <StatusBar style="dark" />
             <Footer navigation={navigation} route={route} />
         </SafeAreaView>
     )

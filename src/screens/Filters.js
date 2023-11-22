@@ -1,5 +1,6 @@
 import React from 'react'
 import { SafeAreaView, Text, View, TouchableOpacity } from 'react-native'
+import { StatusBar } from 'expo-status-bar';
 import { useFilterContext } from '../context/FiltersContext';
 import Footer from '../components/Footer'
 import { Picker } from '@react-native-picker/picker'
@@ -51,6 +52,7 @@ const Filters = ({ route, navigation }) => {
                     <Text className="block w-[85vw] select-none rounded-md border border-indigo-700 py-3 px-6 text-center align-middle text-xs font-bold uppercase text-indigo-700">Clear</Text>
                 </TouchableOpacity>
             </View>
+            <StatusBar style="dark"/>
             <Footer navigation={navigation} route={route} />
         </SafeAreaView>
     )

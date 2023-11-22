@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { SafeAreaView, Text, View, Alert, ActivityIndicator, TouchableOpacity } from 'react-native'
+import { StatusBar } from 'expo-status-bar';
 import { MaterialIcons } from '@expo/vector-icons';
 import Footer from '../components/Footer'
 import { useLoginContext } from '../context/LoginContext'
@@ -106,6 +107,7 @@ const Profile = ({ route, navigation }) => {
                         </TouchableOpacity>
                     </View>)
             }
+            <StatusBar style="dark" />
             <Footer navigation={navigation} route={route} />
         </SafeAreaView>
     )

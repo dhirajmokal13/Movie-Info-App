@@ -1,5 +1,7 @@
 import MovieCard from '../components/MovieCard';
-import { ScrollView, SafeAreaView, View, TextInput, Alert, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { ScrollView, SafeAreaView, View, TextInput, Alert, Text, TouchableOpacity, ActivityIndicator, Pressable } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
+import { AntDesign } from '@expo/vector-icons';
 import React, { useState, useEffect, useRef } from 'react'
 import { useFilterContext } from '../context/FiltersContext';
 import axios from 'axios';
@@ -48,9 +50,9 @@ export const Home = ({ route, navigation }) => {
     }, [filterDetails]);
 
     const handleSearch = () => {
-        if(searchText==='') return Alert.alert("Please Enter the data");
+        if (searchText === '') return Alert.alert("Please Enter the data");
         setIsLoading(true);
-        axios.get(`http://www.omdbapi.com/?apikey=${key}&s=${searchText}&page=${currentPageNo}${filterDetails.Type ? "&type=" + filterDetails.Type : ""}${filterDetails.Year ? "&y=" + filterDetails.Year : ""}`).then(res => {
+        axios.get(`https://www.omdbapi.com/?apikey=${key}&s=${searchText}&page=${currentPageNo}${filterDetails.Type ? "&type=" + filterDetails.Type : ""}${filterDetails.Year ? "&y=" + filterDetails.Year : ""}`).then(res => {
             if (res.data.Response === "True") {
                 setMovieResult(res.data.Search);
                 setTotalResults(res.data.totalResults);
@@ -90,7 +92,7 @@ export const Home = ({ route, navigation }) => {
     }
 
     return (
-        <SafeAreaView>
+        <SafeAreaView className="flex-1">
             <ScrollView>
                 <View className="flex-1 items-center justify-center flex-row">
                     <View className="border border-gray-300 bg-gray-300 py-2 px-4 rounded-md w-[90%] mb-2 mt-3 mx-2">
@@ -98,26 +100,26 @@ export const Home = ({ route, navigation }) => {
                     </View>
                 </View>
                 {
-                    firstLoad ? <Text className="mx-8 text-emerald-700 mb-1">Suggested Content</Text> : <Text className="text-center text-emerald-700 mb-1">Search Results: {searchText}   <Text className="text-red-800">Total: {totalResults}</Text></Text>
+                    firstLoad ? <Text className="mx-8 text-emerald-700 mb-3">Suggested Content</Text> : <Text className="text-center text-emerald-700 mb-3">Search Results: {searchText}   <Text className="text-red-800">Total: {totalResults}</Text>  <Text>Page: {currentPageNo}</Text></Text>
                 }
-                <ScrollView horizontal={true}>
-                    {
-                        isLoading ? (<View className="min-h-[71vh] flex-1 justify-center px-[40vw]"><ActivityIndicator size="large" color="#0000ff" /></View>) : movieResult?.map((item, index) => {
-                            if (item["Poster"] === "N/A") item["Poster"] = "https://img.freepik.com/premium-vector/poster-with-inscription-error-404_600765-3956.jpg"
-                            return <MovieCard key={index} no={calCulatePostNo(currentPageNo, index + 1)} movieName={item["Title"]} type={item["Type"]} moviePoster={item["Poster"]} releaseYear={item["Year"]} imdbID={item["imdbID"]} navigation={navigation} />;
-                        })
-                    }
-                </ScrollView>
-                <View className="px-5 flex flex-row items-center justify-center mt-3 mb-[11vh]">
-                    <TouchableOpacity className="mr-[11vw]" disabled={isLoading ? true : false} onPress={() => handlePagination("previous")}>
-                        <Text className={`w-[25vw] rounded ${isLoading ? 'bg-indigo-500' : 'bg-indigo-900'} py-3 px-4 text-center align-middle text-xs font-bold uppercase text-white shadow-md shadow-indigo-900/20 transition-all hover:shadow-lg hover:shadow-indigo-900/60 focus:opacity-[0.90] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none`}>Previous</Text>
-                    </TouchableOpacity>
-                    <Text>{currentPageNo}</Text>
-                    <TouchableOpacity className="ml-[11vw]" disabled={isLoading ? true : false} onPress={() => handlePagination("next")}>
-                        <Text className={`w-[25vw] rounded ${isLoading ? 'bg-indigo-500' : 'bg-indigo-900'} py-3 px-4 text-center align-middle text-xs font-bold uppercase text-white shadow-md shadow-indigo-900/20 transition-all hover:shadow-lg hover:indigo-900/60 focus:opacity-[0.90] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none`}>Next</Text>
-                    </TouchableOpacity>
+                <View className="relative">
+                    <ScrollView horizontal={true}>
+                        {
+                            isLoading ? (<View className="min-h-[71vh] flex-1 justify-center px-[40vw]"><ActivityIndicator size="large" color="#0000ff" /></View>) : movieResult?.map((item, index) => {
+                                if (item["Poster"] === "N/A") item["Poster"] = "https://img.freepik.com/premium-vector/poster-with-inscription-error-404_600765-3956.jpg"
+                                return <MovieCard total={movieResult.length} key={index} no={calCulatePostNo(currentPageNo, index + 1)} movieName={item["Title"]} type={item["Type"]} moviePoster={item["Poster"]} releaseYear={item["Year"]} imdbID={item["imdbID"]} navigation={navigation} />;
+                            })
+                        }
+                    </ScrollView>
+                    <Pressable className="absolute left-0 top-[37%] bg-gray-300/70 py-[2vh] px-[0.3vw] rounded-r-sm" disabled={isLoading ? true : false} onPress={() => handlePagination("previous")}>
+                        <AntDesign name="caretleft" size={22} color="black" />
+                    </Pressable>
+                    <Pressable className="absolute right-0 top-[37%] bg-gray-300/70 py-[2vh] px-[0.3vw] rounded-l-sm" disabled={isLoading ? true : false} onPress={() => handlePagination("next")}>
+                        <AntDesign name="caretright" size={22} color="black" />
+                    </Pressable>
                 </View>
             </ScrollView>
+            <StatusBar style="dark" />
             <Footer navigation={navigation} route={route} searchRef={searchRef} searchState={{ seachOpened, setsearchOpened }} />
         </SafeAreaView>
     )

@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { SafeAreaView, Text, TextInput, View, TouchableOpacity, Alert } from "react-native";
+import { StatusBar } from 'expo-status-bar';
 import Footer from "../components/Footer";
 import { useLoginContext } from "../context/LoginContext";
 const serverLink = process.env.EXPO_PUBLIC_SERVER_ADDRESS;
@@ -79,6 +80,7 @@ const LoginForm = ({ route, navigation }) => {
                     </TouchableOpacity>
                 </View>
             </View>
+            <StatusBar style="dark" />
             <Footer navigation={navigation} route={route} />
         </SafeAreaView>
     )

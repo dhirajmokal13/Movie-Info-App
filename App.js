@@ -1,5 +1,3 @@
-import { StatusBar } from 'expo-status-bar';
-import { Text, View } from 'react-native';
 import { NativeWindStyleSheet } from "nativewind";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -12,6 +10,7 @@ import RegistrationForm from './src/screens/RegistrationForm';
 import MovieDetails from './src/screens/MovieDetails';
 import Profile from './src/screens/Profile';
 import Filters from './src/screens/Filters';
+import { FontAwesome } from '@expo/vector-icons';
 
 NativeWindStyleSheet.setOutput({
   web: 'css',
@@ -25,7 +24,16 @@ export default function App() {
       <LoginProvider>
         <NavigationContainer>
           <Stack.Navigator initialRouteName="Movie Info">
-            <Stack.Screen name="Movie Info" component={Home} options={{ title: 'Home' }} />
+            <Stack.Screen
+              name="Movie Info"
+              component={Home}
+              options={{
+                title: 'Home',
+                headerLeft: (props) => (
+                  <FontAwesome name="home" size={22} color="black" style={{ marginRight: 10 }} />
+                ),
+              }}
+            />
             <Stack.Screen name="Login" component={LoginForm} />
             <Stack.Screen name="Registration" component={RegistrationForm} />
             <Stack.Screen name="MovieDetails" component={MovieDetails} />
