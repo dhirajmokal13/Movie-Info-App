@@ -3305,6 +3305,11 @@ expo-modules-core@1.5.11:
     compare-versions "^3.4.0"
     invariant "^2.2.4"
 
+expo-speech@~11.3.0:
+  version "11.3.0"
+  resolved "https://registry.yarnpkg.com/expo-speech/-/expo-speech-11.3.0.tgz#374c6cb4df90f226652a8958729783f7a9a60127"
+  integrity sha512-pJLh8pLuMJRZrg7hzS4JtMwvjbgfCkmoERL45A8vkq8VQFo+2GPT72BMuC9xy1sys7CGZJ8M5yMYTE5saUr1rg==
+
 expo-status-bar@~1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/expo-status-bar/-/expo-status-bar-1.6.0.tgz#e79ffdb9a84d2e0ec9a0dc7392d9ab364fefa9cf"

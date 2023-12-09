@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { View, SafeAreaView, Image, Text, ScrollView, ActivityIndicator, StyleSheet, Pressable } from 'react-native'
 import { StatusBar } from 'expo-status-bar';
 import { FontAwesome } from '@expo/vector-icons';
+import * as Speech from 'expo-speech';
 import axios from 'axios'
 import YoutubePlayer from "react-native-youtube-iframe";
 import Modal from "react-native-modal";
@@ -14,6 +15,7 @@ const MovieDetails = ({ route, navigation }) => {
     const [movieData, setMovieData] = useState({});
     const [isLoading, setIsLoading] = useState(true);
     const [likesCount, setLikesCount] = useState(0); //likes will set by child component using callback
+    const [plotListen, setPlotListen] = useState(false);
     const [isTrailer, setIsTrailer] = useState({
         isTrailerAvailable: false,
         openTrailerModal: false,
@@ -57,6 +59,11 @@ const MovieDetails = ({ route, navigation }) => {
         })
     }
 
+    const ListenPlot = () => {
+        setPlotListen(!plotListen);
+        plotListen ? Speech.stop() : Speech.speak(movieData["Plot"]);
+    }
+
     return (
         <SafeAreaView className="flex-1 items-center">
             {
@@ -66,7 +73,8 @@ const MovieDetails = ({ route, navigation }) => {
                             <Image className="w-full h-full" source={{ uri: movieData["Poster"] }} />
                             <View className="absolute top-0 my-[1.2vh] mx-[3vw] flex flex-column">
                                 <FontAwesome name="heart" size={24} color="red" />
-                                <Text className="text-white text-center">{likesCount}</Text>
+                                <Text className="text-white text-center -ml-[2.3vw]">{likesCount}</Text>
+                                <Pressable className="mt-[0.8vh]" onPress={ListenPlot}><FontAwesome name="audio-description" size={24} color={plotListen ? "green" : "white"} /></Pressable>
                             </View>
                             {
                                 isTrailer.isTrailerAvailable && (<Pressable className="absolute bottom-0 right-0 pr-4 pb-2 z-32 z-20" onPress={() => setIsTrailer((pre) => ({ ...pre, openTrailerModal: true }))}><FontAwesome className="ml-[5vw]" name="video-camera" size={21} color="#e11d48" /></Pressable>)
