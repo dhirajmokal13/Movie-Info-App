@@ -61,8 +61,10 @@ const MovieDetails = ({ route, navigation }) => {
 
     const ListenPlot = () => {
         setPlotListen(!plotListen);
-        plotListen ? Speech.stop() : Speech.speak(movieData["Plot"]);
-    }
+        plotListen ? Speech.stop() : Speech.speak(movieData["Plot"], {
+            onDone: () => setPlotListen(false)
+        });
+    }
 
     return (
         <SafeAreaView className="flex-1 items-center">
