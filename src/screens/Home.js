@@ -71,7 +71,7 @@ export const Home = ({ route, navigation }) => {
     const calCulatePostNo = (pageNo, index) => {
         if (index !== 10) {
             return Number(`${pageNo - 1}${index}`);
-        } {
+        } else {
             return pageNo * index;
         }
     }
