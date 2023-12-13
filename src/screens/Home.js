@@ -1,9 +1,10 @@
 import MovieCard from '../components/MovieCard';
-import { ScrollView, SafeAreaView, View, TextInput, Alert, Text, TouchableOpacity, ActivityIndicator, Pressable } from 'react-native';
+import { ScrollView, SafeAreaView, View, TextInput, Alert, Text, ActivityIndicator, Pressable } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { AntDesign } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 import React, { useState, useEffect, useRef } from 'react'
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { useFilterContext } from '../context/FiltersContext';
 import axios from 'axios';
 import Footer from '../components/Footer';
@@ -80,7 +81,7 @@ export const Home = ({ route, navigation }) => {
         <SafeAreaView className="flex-1">
             <ScrollView>
                 <View className="flex-1 items-center justify-center flex-row">
-                    <View className="border border-gray-300 bg-gray-300 py-2 px-4 rounded-md w-[90%] mb-2 mt-3 mx-2 flex flex-row">
+                    <View style={{ width: wp('90%') }} className="border border-gray-300 bg-gray-300 py-2 px-4 rounded-md mb-2 mt-3 mx-2 flex flex-row">
                         <View className="mr-[3.5vw] mt-[0.4vh] -ml-[0.5vw]"><FontAwesome name="search" size={22} color="black" /></View>
                         <TextInput placeholder="Search Movies/Series/Shows" ref={searchRef} value={searchText} onBlur={() => setsearchOpened(false)} onChangeText={txt => setSearchText(txt)} returnKeyType="search" onSubmitEditing={() => currentPageNo === 1 ? handleSearch() : setCurrentPageNo(1)} />
                     </View>
