@@ -8,7 +8,8 @@ import YoutubePlayer from "react-native-youtube-iframe";
 import Modal from "react-native-modal";
 import Footer from '../components/Footer';
 import MovieReviews from '../components/MovieReviews';
-const key = process.env.EXPO_PUBLIC_OMDB_API_KEY_ONE || process.env.EXPO_PUBLIC_OMDB_API_KEY_TWO;
+import { Recommendations } from '../components/Recommendations';
+const key = process.env.EXPO_PUBLIC_OMDB_API_KEY_ONE || process.env.EXPO_PUBLIC_OMDB_API_KEY_TWO || EXPO_PUBLIC_OMDB_API_KEY_THREE;
 const serverLink = process.env.EXPO_PUBLIC_SERVER_ADDRESS;
 
 const MovieDetails = ({ route, navigation }) => {
@@ -16,18 +17,19 @@ const MovieDetails = ({ route, navigation }) => {
     const [isLoading, setIsLoading] = useState(true);
     const [likesCount, setLikesCount] = useState(0); //likes will set by child component using callback
     const [plotListen, setPlotListen] = useState(false);
+    const [movie_id, setMovieId] = useState(route.params.imdbID);
     const [isTrailer, setIsTrailer] = useState({
         isTrailerAvailable: false,
         openTrailerModal: false,
         TrailerId: ''
     });
 
-    const movie_id = route.params.imdbID; //getting imdb id for fetching moview data
+    //const movie_id = route.params.imdbID; //getting imdb id for fetching moview data
 
     useEffect(() => {
         fetchMovieData();
         fetchTrailer();
-    }, []);
+    }, [movie_id]);
 
     const fetchMovieData = () => {
         setIsLoading(true);
@@ -63,8 +65,8 @@ const MovieDetails = ({ route, navigation }) => {
         setPlotListen(!plotListen);
         plotListen ? Speech.stop() : Speech.speak(movieData["Plot"], {
             onDone: () => setPlotListen(false)
-        });
-    }
+        });
+    }
 
     return (
         <SafeAreaView className="flex-1 items-center">
@@ -128,6 +130,7 @@ const MovieDetails = ({ route, navigation }) => {
                             )
                         }
 
+                        <Recommendations movieId={movie_id} setMovieId={setMovieId} />
                         <MovieReviews setLikesCount={setLikesCount} imdbID={movieData.imdbID} navigation={navigation} />
                     </ScrollView>)
             }

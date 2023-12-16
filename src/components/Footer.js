@@ -16,9 +16,17 @@ const Footer = (props) => {
         }
     }
 
+    const homeNavigate = () => {
+        if(props.route.name === "Movie Info"){
+            props.setFirstLoad(true);
+        } else {
+            props.navigation.navigate("Movie Info");
+        }
+    }
+
     return (
         <SafeAreaView className="px-[12vw] py-[1.6vh] backdrop-blur bg-black/90 rounded-2xl min-h-[7vh] absolute left-[4vw] right-[4vw] bottom-3 w-[92vw] flex-1 items-center flex-row justify-between">
-            <TouchableOpacity disabled={props.route.name === "Movie Info"} onPress={() => props.navigation.navigate("Movie Info")}>
+            <TouchableOpacity onPress={homeNavigate}>
                 {props.route.name === "Movie Info" ? <FontAwesome name="home" size={20} color="#e11d48" /> : <FontAwesome name="home" size={20} color="white" />}
                 <Text className="-ml-2 text-xs text-white">Home</Text>
             </TouchableOpacity>

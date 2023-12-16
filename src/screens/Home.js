@@ -8,16 +8,16 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import { useFilterContext } from '../context/FiltersContext';
 import axios from 'axios';
 import Footer from '../components/Footer';
-import defaultData from '../constants/DefaultData';
-const key = process.env.EXPO_PUBLIC_OMDB_API_KEY_ONE || process.env.EXPO_PUBLIC_OMDB_API_KEY_TWO;
+import Recommendations from '../constants/Recommendations';
+const key = process.env.EXPO_PUBLIC_OMDB_API_KEY_ONE || process.env.EXPO_PUBLIC_OMDB_API_KEY_TWO || process.env.EXPO_PUBLIC_OMDB_API_KEY_THREE;
 
 export const Home = ({ route, navigation }) => {
     const { filterDetails } = useFilterContext();
     const [searchText, setSearchText] = useState('');
-    const [movieResult, setMovieResult] = useState(defaultData);
+    const [movieResult, setMovieResult] = useState([]);
     const [totalResults, setTotalResults] = useState(0);
     const [currentPageNo, setCurrentPageNo] = useState(1);
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
     const [firstLoad, setFirstLoad] = useState(true);
     const [seachOpened, setsearchOpened] = useState(false);
     const searchRef = useRef(null);
@@ -26,7 +26,18 @@ export const Home = ({ route, navigation }) => {
         if (!firstLoad) {
             handleSearch();
         }
-    }, [currentPageNo]);
+
+        if (firstLoad) {
+            setIsLoading(true);
+            (async function () {
+                const res = await Recommendations();
+                setMovieResult(res);
+                setIsLoading(false);
+                setCurrentPageNo(1);
+                setSearchText('');
+            })();
+        }
+    }, [currentPageNo, firstLoad]);
 
     useEffect(() => {
         if (searchText !== '') {
@@ -54,7 +65,7 @@ export const Home = ({ route, navigation }) => {
     }
 
     const handlePagination = (position) => {
-        if (movieResult === defaultData) return Alert.alert("This is Default Page");
+        if (movieResult.length > 10) return Alert.alert("This is Default Page");
         switch (position) {
             case "next":
                 if (Number.isInteger(totalResults / 10)) {
@@ -92,7 +103,7 @@ export const Home = ({ route, navigation }) => {
                 <View className="relative">
                     <ScrollView horizontal={true}>
                         {
-                            isLoading ? (<View className="min-h-[71vh] flex-1 justify-center px-[40vw]"><ActivityIndicator size="large" color="#0000ff" /></View>) : movieResult?.map((item, index) => {
+                            isLoading ? (<View className="min-h-[71vh] flex-1 justify-center px-[44vw]"><ActivityIndicator size="large" color="#0000ff" /></View>) : movieResult?.map((item, index) => {
                                 if (item["Poster"] === "N/A") item["Poster"] = "https://img.freepik.com/premium-vector/poster-with-inscription-error-404_600765-3956.jpg"
                                 return <MovieCard total={movieResult.length} key={index} no={calCulatePostNo(currentPageNo, index + 1)} movieName={item["Title"]} type={item["Type"]} moviePoster={item["Poster"]} releaseYear={item["Year"]} imdbID={item["imdbID"]} navigation={navigation} />;
                             })
@@ -107,7 +118,7 @@ export const Home = ({ route, navigation }) => {
                 </View>
             </ScrollView>
             <StatusBar style="dark" />
-            <Footer navigation={navigation} route={route} searchRef={searchRef} searchState={{ seachOpened, setsearchOpened }} />
+            <Footer navigation={navigation} setFirstLoad={setFirstLoad} route={route} searchRef={searchRef} searchState={{ seachOpened, setsearchOpened }} />
         </SafeAreaView>
     )
 }

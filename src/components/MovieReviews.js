@@ -175,7 +175,7 @@ const MovieReviews = ({ setLikesCount, imdbID, navigation }) => {
                 </View>
             </Modal>
 
-            <View className="mb-[11vh] flex items-center justify-center bg-white mx-[1.3vw] py-[2vh] rounded-md">
+            <View className="mb-[11vh] flex items-center justify-center bg-white mx-[1.3vw] py-[2vh] rounded-lg">
                 <Text className="text-xl mb-[0.9vh] font-semibold tracking-widest mt-[1vh]">Reviews</Text>
                 {
                     reviews.length === 0 ? (
@@ -207,7 +207,7 @@ const MovieReviews = ({ setLikesCount, imdbID, navigation }) => {
                                                         {showMenu && (
                                                             <View className="w-[18.5vw] absolute right-5 rounded-md z-[1]" style={styles.shadowContainer}>
                                                                 <Text className="text-black my-1 text-center mt-4" onPress={() => { setShowModal(true), setShowMenu(false) }}>Edit</Text>
-                                                                <Text className="text-black my-1 text-center my-4" onPress={() => { handleReviewRemove(), setShowMenu(false) }}>Delete</Text>
+                                                                <Text className="text-black text-center my-4" onPress={() => { handleReviewRemove(), setShowMenu(false) }}>Delete</Text>
                                                             </View>
                                                         )}
                                                     </View>
