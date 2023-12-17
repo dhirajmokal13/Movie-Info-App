@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { View, SafeAreaView, Image, Text, ScrollView, ActivityIndicator, StyleSheet, Pressable } from 'react-native'
 import { StatusBar } from 'expo-status-bar';
 import { FontAwesome } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
 import * as Speech from 'expo-speech';
 import axios from 'axios'
 import YoutubePlayer from "react-native-youtube-iframe";
@@ -52,7 +53,7 @@ const MovieDetails = ({ route, navigation }) => {
                 })
             }
         }).catch(err => {
-            console.log(err.response.status);
+            console.log(`${err.response.status} - Trailer Not Found`);
             setIsTrailer({
                 isTrailerAvailable: false,
                 openTrailerModal: false,
@@ -80,29 +81,16 @@ const MovieDetails = ({ route, navigation }) => {
                                 <Text className="text-white text-center -ml-[2.3vw]">{likesCount}</Text>
                                 <Pressable className="mt-[0.8vh]" onPress={ListenPlot}><FontAwesome name="audio-description" size={24} color={plotListen ? "green" : "white"} /></Pressable>
                             </View>
-                            {
-                                isTrailer.isTrailerAvailable && (<Pressable className="absolute bottom-0 right-0 pr-4 pb-2 z-32 z-20" onPress={() => setIsTrailer((pre) => ({ ...pre, openTrailerModal: true }))}><FontAwesome className="ml-[5vw]" name="video-camera" size={21} color="#e11d48" /></Pressable>)
-                            }
-                            <Text className="absolute bottom-0 bg-black/[0.65] text-white py-2 px-4 w-full z-10">{movieData["Type"]}    <Text className="text-pink-700">{movieData["Year"]}   {movieData["Type"] === "series" ? <Text><Text className="text-white">Total Seasons:</Text> {movieData["totalSeasons"]} </Text> : ""}</Text></Text>
+                            <Pressable disabled={!isTrailer.isTrailerAvailable} className="absolute bottom-0 right-0 pr-4 pb-2 z-32 z-20" onPress={() => setIsTrailer((pre) => ({ ...pre, openTrailerModal: true }))}><FontAwesome5 className="ml-[5vw]" name={isTrailer.isTrailerAvailable ? "video" : "video-slash"} size={21} color="#e11d48" /></Pressable>
+                            <Text className="absolute bottom-0 bg-black/[0.65] text-white py-2 px-4 w-full z-10">{movieData["Type"]} - <Text className="text-pink-700">{movieData["Year"]}   {movieData["Type"] === "series" ? <Text><Text className="text-white">Total Seasons:</Text> {movieData["totalSeasons"]} </Text> : ""}</Text></Text>
                         </View>
-                        <View className="mt-12 mb-[3vh] w-[95vw]">
+                        <View className="mt-12 mb-[1.6vh] w-[95vw]">
                             <Text className="text-black mb-3 text-lg font-semibold text-blue-gray-900 text-center">{movieData["Title"]} | <Text className="text-rose-700">{movieData["Released"]}</Text></Text>
-                            <Text className="text-gray-500 my-1"><Text className="font-bold tracking-wide text-black">Genre:</Text> {movieData["Genre"]}</Text>
-                            <Text className="text-gray-500 my-1"><Text className="font-bold tracking-wide text-black">RunTime:</Text> {movieData["Runtime"]}</Text>
-                            <Text className="text-gray-500 my-1"><Text className="font-bold tracking-wide text-black">Languages:</Text> {movieData["Language"]}</Text>
-                            <Text className="text-gray-500 my-1"><Text className="font-bold tracking-wide text-black">Rated:</Text> {movieData["Rated"]}</Text>
-                            <Text className="text-gray-500 my-1"><Text className="font-bold tracking-wide text-black">Actors:</Text> {movieData["Actors"]}</Text>
-                            <Text className="text-gray-500 my-1"><Text className="font-bold tracking-wide text-black">Awards:</Text> {movieData["Awards"]}</Text>
-                            <Text className="text-gray-500 my-1"><Text className="font-bold tracking-wide text-black">Boxoffice:</Text> {movieData["BoxOffice"]}</Text>
-                            <Text className="text-gray-500 my-1"><Text className="font-bold tracking-wide text-black">Country:</Text> {movieData["Country"]}</Text>
-                            <Text className="text-gray-500 my-1"><Text className="font-bold tracking-wide text-black">DVD:</Text> {movieData["DVD"]}</Text>
-                            <Text className="text-gray-500 my-1"><Text className="font-bold tracking-wide text-black">Director:</Text> {movieData["Director"]}</Text>
-                            <Text className="text-gray-500 my-1"><Text className="font-bold tracking-wide text-black">Metascore:</Text> {movieData["Metascore"]}</Text>
-                            <Text className="text-gray-500 my-1"><Text className="font-bold tracking-wide text-black">Production:</Text> {movieData["Production"]}</Text>
-                            <Text className="text-gray-500 my-1"><Text className="font-bold tracking-wide text-black">Website:</Text> {movieData["Website"]}</Text>
-                            <Text className="text-gray-500 my-1"><Text className="font-bold tracking-wide text-black">Writer:</Text> {movieData["Writer"]}</Text>
-                            <Text className="text-gray-500 my-1"><Text className="font-bold tracking-wide text-black">Imdb Rating:</Text> {movieData["imdbRating"]}/10</Text>
-                            <Text className="text-gray-500 my-1"><Text className="font-bold tracking-wide text-black">Imdb Votes:</Text> {movieData["imdbVotes"]}</Text>
+                            {
+                                ["Genre", "Runtime", "Language", "Rated", "Actors", "Awards", "BoxOffice", "Country", "DVD", "Director", "Metascore", "Production", "Website", "Writer", "imdbRating", "imdbVotes"].map((category, index) => {
+                                    return <Text className="text-gray-500 my-1" key={index}><Text className="font-bold tracking-wide text-black">{category}:</Text> {movieData[category]}{category == 'imdbRating' && '/10'}</Text>
+                                })
+                            }
                             <Text className="text-black my-1 font-bold tracking-wide">Ratings:{
                                 movieData["Ratings"]?.map((data, index) => {
                                     return (

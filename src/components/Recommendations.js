@@ -23,7 +23,7 @@ export const Recommendations = ({ movieId, setMovieId }) => {
     if (recommendData.length === 0) return;
     return (
         <SafeAreaView style={{ marginBottom: hp(4), width: wp(95) }}>
-            <Text style={{ fontSize: hp(2.3) }} className="text-center text-rose-600">Recommendations</Text>
+            <Text style={{ fontSize: hp(2.3) }} className="text-center text-lime-700">Recommendations</Text>
             <ScrollView style={{ marginTop: hp(1.7) }} horizontal={true}>
                 {
                     recommendData?.map((data, index) => {

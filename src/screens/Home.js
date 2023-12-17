@@ -8,7 +8,7 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import { useFilterContext } from '../context/FiltersContext';
 import axios from 'axios';
 import Footer from '../components/Footer';
-import Recommendations from '../constants/Recommendations';
+import Recommendations from '../Api/Suggestions';
 const key = process.env.EXPO_PUBLIC_OMDB_API_KEY_ONE || process.env.EXPO_PUBLIC_OMDB_API_KEY_TWO || process.env.EXPO_PUBLIC_OMDB_API_KEY_THREE;
 
 export const Home = ({ route, navigation }) => {
