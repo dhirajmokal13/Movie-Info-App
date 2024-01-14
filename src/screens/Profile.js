@@ -96,7 +96,7 @@ const Profile = ({ route, navigation }) => {
                             <MaterialIcons style={{ verticalAlign: "middle", color: "#22c55e" }} name="phone" size={35} />
                             <View className="ml-[6vw]">
                                 <Text className="text-gray-400 tracking-wider">Mobile Number</Text>
-                                <Text className="font-semibold tracking-wider text-indigo-900">+91 {userData.profileInfo.mobileNumber}</Text>
+                                <Text className="font-semibold tracking-wider text-indigo-900">{userData.profileInfo.mobileNumber}</Text>
                             </View>
                         </View>
                         <TouchableOpacity className="mx-[2vw] mt-[5vh]" onPress={logout}>
