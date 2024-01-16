@@ -9,7 +9,7 @@ import { useFilterContext } from '../context/FiltersContext';
 import axios from 'axios';
 import Footer from '../components/Footer';
 import Recommendations from '../Api/Suggestions';
-const key = process.env.EXPO_PUBLIC_OMDB_API_KEY_ONE || process.env.EXPO_PUBLIC_OMDB_API_KEY_TWO || process.env.EXPO_PUBLIC_OMDB_API_KEY_THREE;
+const key = process.env.EXPO_PUBLIC_OMDB_API_KEY_ONE || process.env.EXPO_PUBLIC_OMDB_API_KEY_TWO || process.env.EXPO_PUBLIC_OMDB_API_KEY_THREE || process.env.EXPO_PUBLIC_OMDB_API_KEY_FOUR || process.env.EXPO_PUBLIC_OMDB_API_KEY_FIVE;
 
 export const Home = ({ route, navigation }) => {
     const { filterDetails } = useFilterContext();

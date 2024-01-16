@@ -10,7 +10,7 @@ import Modal from "react-native-modal";
 import Footer from '../components/Footer';
 import MovieReviews from '../components/MovieReviews';
 import { Recommendations } from '../components/Recommendations';
-const key = process.env.EXPO_PUBLIC_OMDB_API_KEY_ONE || process.env.EXPO_PUBLIC_OMDB_API_KEY_TWO || EXPO_PUBLIC_OMDB_API_KEY_THREE;
+const key = process.env.EXPO_PUBLIC_OMDB_API_KEY_ONE || process.env.EXPO_PUBLIC_OMDB_API_KEY_TWO || EXPO_PUBLIC_OMDB_API_KEY_THREE || process.env.EXPO_PUBLIC_OMDB_API_KEY_FOUR || process.env.EXPO_PUBLIC_OMDB_API_KEY_FIVE;;
 const serverLink = process.env.EXPO_PUBLIC_SERVER_ADDRESS;
 
 const MovieDetails = ({ route, navigation }) => {

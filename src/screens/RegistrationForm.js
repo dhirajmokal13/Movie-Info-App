@@ -12,18 +12,12 @@ const serverLink = process.env.EXPO_PUBLIC_SERVER_ADDRESS;
 
 const RegistrationForm = ({ route, navigation }) => {
     const [btnLoading, setBtnLoading] = useState(false);
-
-    const [registrationData, setRegistrationData] = useState({
-        name: '',
-        email: '',
-        countryCode: '+91-india',
-        mobile: '',
-        password: '',
-        confirmPassword: '',
-        role: 'User'
-    });
+    const defaultRegistrationdata = { name: '', email: '', countryCode: '+91-india', mobile: '', password: '', confirmPassword: '', role: 'User' }
+    const [registrationData, setRegistrationData] = useState(defaultRegistrationdata);
 
     const registrationDataHandle = (name, value) => {
+        //If key is mobile number and value is not numric value like string then don't set it.
+        if (name === "mobile" && isNaN(value)) { return 0; }
         setRegistrationData({
             ...registrationData,
             [name]: value
@@ -49,15 +43,7 @@ const RegistrationForm = ({ route, navigation }) => {
                 if (res.data.status === "Success") {
                     Alert.alert(res.data.message);
                     setBtnLoading(false);
-                    setRegistrationData({
-                        name: '',
-                        email: '',
-                        countryCode: '+91-india',
-                        mobile: '',
-                        password: '',
-                        confirmPassword: '',
-                        role: 'User'
-                    });
+                    setRegistrationData(defaultRegistrationdata);
                 }
             }).catch(err => {
                 setBtnLoading(false);
@@ -172,6 +158,6 @@ const styles = StyleSheet.create({
     selectedRowStyle: {
         backgroundColor: 'rgba(209 213 219 / 1.0)'
     }
-})
+});
 
 export default RegistrationForm;

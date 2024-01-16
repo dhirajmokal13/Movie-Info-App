@@ -12,10 +12,12 @@
     },
     "production": {
       "env": {
-        "EXPO_PUBLIC_OMDB_API_KEY_ONE":"4034acde",
+        "EXPO_PUBLIC_OMDB_API_KEY_ONE": "4034acde",
         "EXPO_PUBLIC_OMDB_API_KEY_TWO": "76593128",
         "EXPO_PUBLIC_OMDB_API_KEY_THREE": "db35a3c4",
-        "EXPO_PUBLIC_SERVER_ADDRESS":"https://puce-odd-rooster.cyclic.app"
+        "EXPO_PUBLIC_OMDB_API_KEY_FOUR": "120a7ce5",
+        "EXPO_PUBLIC_OMDB_API_KEY_FIVE": "af3242af",
+        "EXPO_PUBLIC_SERVER_ADDRESS": "https://puce-odd-rooster.cyclic.app"
       }
     }
   },
